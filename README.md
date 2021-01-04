@@ -168,5 +168,5 @@ Hint 2:
 
 If you want to format JSON, consider using
 
-- a <pre> element
+- a `<pre>` element
 - JSON.stringify({ hello: 'hello'}, null, 4)
