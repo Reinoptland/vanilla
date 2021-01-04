@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>My todo list</h1>
+    <div>
+      <label>New Todo</label><input type="text" id="todoInput" /><button
+        id="newTodo"
+      >
+        Just do it
+      </button>
+    </div>
+    <ul id="todoList">
+      <li><input type="checkbox" />Learn vanilla JS</li>
+      <li><input type="checkbox" />Make a todo app</li>
+    </ul>
+    <button id="clearButton">Clear items which are done</button>
+  </body>
+  <script>
+    // select the button
+    const button = document.getElementById("newTodo");
+
+    function newTodo() {
+      // select the inputfield
+      const input = document.getElementById("todoInput");
+      // get the value from the input field
+      const value = input.value;
+      // create the a new list item <li></li>
+      const listItem = document.createElement("li");
+      // create a new input <input />
+      const checkbox = document.createElement("input");
+      // set the input to be a checkbox <input type="checkbox" />
+      checkbox.type = "checkbox";
+      // add event listener for strikethrough
+      addLineThroughEventListener(checkbox);
+      // add the checkbox to the listitem <li><input type="checkbox" /></li>
+      listItem.appendChild(checkbox);
+      // listItem.innerText = value // -> overwrites the checkbox
+      // create a piece of text (the text is the value of the input field) // "Rein"
+      const text = document.createTextNode(value);
+      // add the piece of text to the list item
+      listItem.appendChild(text);
+      // check wether the listitem is the right shape
+      console.log(listItem);
+
+      // select the list
+      const list = document.getElementById("todoList");
+      console.log(list);
+      // add the child to the list
+      list.appendChild(listItem);
+    }
+    button.addEventListener("click", newTodo);
+
+    const removeDoneTodos = () => {
+      const checkboxes = document.getElementsByTagName("input");
+      //   console.log(checkboxes);
+      for (const checkbox of checkboxes) {
+        // console.log("CHECKED?", checkbox.checked);
+        if (checkbox.checked) {
+          //   checkbox.parentElement.style.display = "none";
+          checkbox.parentElement.remove();
+        }
+      }
+    };
+
+    function addRemoveTodoEventListener() {
+      const button = document.getElementById("clearButton");
+      button.addEventListener("click", removeDoneTodos);
+    }
+
+    function addLineThroughEventListener(checkbox) {
+      checkbox.addEventListener("click", () => {
+        if (checkbox.checked) {
+          checkbox.parentElement.style.textDecoration = "line-through";
+        } else {
+          checkbox.parentElement.style.textDecoration = "none";
+        }
+      });
+    }
+
+    function addTodoLineThroughEventListeners() {
+      // Select all checkboxes
+      const checkboxes = document.getElementsByTagName("input");
+
+      // Add an event listener to strikethrough the text on click
+      for (const checkbox of checkboxes) {
+        addLineThroughEventListener(checkbox);
+      }
+    }
+
+    // when the app starts up for the first time
+    addRemoveTodoEventListener();
+
+    // add the line through functionality to all existing checkboxes (2)
+    addTodoLineThroughEventListeners();
+  </script>
+</html>
