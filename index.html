@@ -25,35 +25,24 @@
     // select the button
     const button = document.getElementById("newTodo");
 
-    function newTodo() {
-      // select the inputfield
-      const input = document.getElementById("todoInput");
-      // get the value from the input field
-      const value = input.value;
-      // create the a new list item <li></li>
+    function createTodoElement(todoText) {
       const listItem = document.createElement("li");
-      // create a new input <input />
       const checkbox = document.createElement("input");
-      // set the input to be a checkbox <input type="checkbox" />
       checkbox.type = "checkbox";
       checkbox.classList.add("todoCheckbox");
-      // add event listener for strikethrough
       addLineThroughEventListener(checkbox);
-      // add the checkbox to the listitem <li><input type="checkbox" /></li>
       listItem.appendChild(checkbox);
-      // listItem.innerText = value // -> overwrites the checkbox
-      // create a piece of text (the text is the value of the input field) // "Rein"
-      const text = document.createTextNode(value);
-      // add the piece of text to the list item
+      const text = document.createTextNode(todoText);
       listItem.appendChild(text);
-      // check wether the listitem is the right shape
-      console.log(listItem);
+      return listItem;
+    }
 
-      // select the list
+    function newTodo() {
+      const input = document.getElementById("todoInput");
+      const value = input.value;
+      const newTodoItem = createTodoElement(value);
       const list = document.getElementById("todoList");
-      console.log(list);
-      // add the child to the list
-      list.appendChild(listItem);
+      list.appendChild(newTodoItem);
     }
     button.addEventListener("click", newTodo);
 
