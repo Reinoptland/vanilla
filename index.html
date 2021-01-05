@@ -18,6 +18,7 @@
       <li><input type="checkbox" />Learn vanilla JS</li>
       <li><input type="checkbox" />Make a todo app</li>
     </ul>
+    <li><input />Make a todo app</li>
     <button id="clearButton">Clear items which are done</button>
   </body>
   <script>
@@ -35,6 +36,7 @@
       const checkbox = document.createElement("input");
       // set the input to be a checkbox <input type="checkbox" />
       checkbox.type = "checkbox";
+      checkbox.classList.add("todoCheckbox");
       // add event listener for strikethrough
       addLineThroughEventListener(checkbox);
       // add the checkbox to the listitem <li><input type="checkbox" /></li>
@@ -56,36 +58,25 @@
     button.addEventListener("click", newTodo);
 
     const removeDoneTodos = () => {
-      //   console.log("is this getting run?");
-      const inputs = document.getElementsByTagName("input");
-      //   console.log("ALL INPUTS:", inputs);
-      let itemsToBeRemoved = [];
-      for (const input of inputs) {
-        console.log("Input in for loop, 4 times?", input);
-        console.count("loop");
-        if (input.type === "checkbox" && input.checked) {
-          //   input.parentElement.style.display = "none";
-          //   input.parentElement.remove(); // -> length 4 -> length 3
-          itemsToBeRemoved.push(input);
-          //   console.log("another log");
-        }
-      }
+      //   const checkboxes = document.getElementsByClassName("todoCheckbox");
+      document
+        .querySelectorAll("li > input[type='checkbox']")
+        .forEach((checkbox) => {
+          if (checkbox.checked) {
+            checkbox.parentElement.remove();
+          }
+        });
 
-      console.log(itemsToBeRemoved);
-      itemsToBeRemoved.forEach((checkbox) => checkbox.parentElement.remove());
-      console.log("OLD COLLECTION:", inputs);
+      //   console.log(checkboxes);
+      //   let itemsToBeRemoved = [];
 
-      // FOR LOOP ALSO DOES NOT WORK
-      //   for (let index = 0; index < inputs.length; index++) {
-      //     console.log("INDEX:", index, "LENGTH:", inputs.length);
-      //     const input = inputs[index];
-      //     console.log(input);
-      //     if (input.type === "checkbox" && input.checked) {
-      //       //   input.parentElement.style.display = "none";
-      //       input.parentElement.remove(); // -> length 4 -> length 3
-      //       //   console.log("another log");
+      //   for (const checkbox of checkboxes) {
+      //     if (checkbox.type === "checkbox" && checkbox.checked) {
+      //       itemsToBeRemoved.push(checkbox);
       //     }
       //   }
+
+      //   itemsToBeRemoved.forEach((checkbox) => checkbox.parentElement.remove());
     };
 
     function addRemoveTodoEventListener() {

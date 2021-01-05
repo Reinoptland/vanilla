@@ -175,6 +175,8 @@ If you want to format JSON, consider using
 
 - Investigate: Why does my clear button not clear all the items :(
 - Some more "modern" vanilla methods
+  - document.querySelector() / document.querySelectorAll() -> css selector, and use forEach
+  -
 - The idea of initializing our JavaScript (where to put our script)
 - What is the DOM actually??
 - V2 api explorer
