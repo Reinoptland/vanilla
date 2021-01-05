@@ -56,15 +56,36 @@
     button.addEventListener("click", newTodo);
 
     const removeDoneTodos = () => {
-      const checkboxes = document.getElementsByTagName("input");
-      //   console.log(checkboxes);
-      for (const checkbox of checkboxes) {
-        // console.log("CHECKED?", checkbox.checked);
-        if (checkbox.checked) {
-          //   checkbox.parentElement.style.display = "none";
-          checkbox.parentElement.remove();
+      //   console.log("is this getting run?");
+      const inputs = document.getElementsByTagName("input");
+      //   console.log("ALL INPUTS:", inputs);
+      let itemsToBeRemoved = [];
+      for (const input of inputs) {
+        console.log("Input in for loop, 4 times?", input);
+        console.count("loop");
+        if (input.type === "checkbox" && input.checked) {
+          //   input.parentElement.style.display = "none";
+          //   input.parentElement.remove(); // -> length 4 -> length 3
+          itemsToBeRemoved.push(input);
+          //   console.log("another log");
         }
       }
+
+      console.log(itemsToBeRemoved);
+      itemsToBeRemoved.forEach((checkbox) => checkbox.parentElement.remove());
+      console.log("OLD COLLECTION:", inputs);
+
+      // FOR LOOP ALSO DOES NOT WORK
+      //   for (let index = 0; index < inputs.length; index++) {
+      //     console.log("INDEX:", index, "LENGTH:", inputs.length);
+      //     const input = inputs[index];
+      //     console.log(input);
+      //     if (input.type === "checkbox" && input.checked) {
+      //       //   input.parentElement.style.display = "none";
+      //       input.parentElement.remove(); // -> length 4 -> length 3
+      //       //   console.log("another log");
+      //     }
+      //   }
     };
 
     function addRemoveTodoEventListener() {

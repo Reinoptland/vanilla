@@ -170,3 +170,22 @@ If you want to format JSON, consider using
 
 - a `<pre>` element
 - JSON.stringify({ hello: 'hello'}, null, 4)
+
+## Day 2
+
+- Investigate: Why does my clear button not clear all the items :(
+- Some more "modern" vanilla methods
+- The idea of initializing our JavaScript (where to put our script)
+- What is the DOM actually??
+- V2 api explorer
+
+Diagnosis
+
+- [x] Does my function run? -> put in a log
+- [x] Go line by line, verify that each line works as intended
+
+  - Make a log with the output of a piece of code
+  - Make predictions of what you are going to see -> test your understanding, you might not spot the bug otherwise
+  - Verify your prediction was correct (run the code)
+
+- Problem: length of the collection was getting changed halfway through the loop
