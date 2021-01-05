@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <template id="todoItemTemplate">
-      <li>
-        <input type="checkbox" />
+      <li classname="todoItem">
+        <input
+          classname="todoItem__checkbox"
+          type="checkbox"
+          aria-label="done"
+        />
       </li>
     </template>
+    <script src="main.js"></script>
   </head>
   <body>
     <h1>My todo list</h1>
@@ -25,85 +30,4 @@
     </ul>
     <button id="clearButton">Clear items which are done</button>
   </body>
-  <script>
-    // select the button
-    const button = document.getElementById("newTodo");
-
-    function createTodoElement(todoText) {
-      const newTodoItem = document
-        .querySelector("#todoItemTemplate")
-        .content.cloneNode(true);
-
-      addLineThroughEventListener(
-        newTodoItem.querySelector('input[type="checkbox"]')
-      );
-
-      const text = document.createTextNode(todoText);
-      newTodoItem.querySelector("li").appendChild(text);
-
-      return newTodoItem;
-    }
-
-    function newTodo() {
-      const input = document.getElementById("todoInput");
-      const value = input.value;
-      const newTodoItem = createTodoElement(value);
-      const list = document.getElementById("todoList");
-      list.appendChild(newTodoItem);
-    }
-    button.addEventListener("click", newTodo);
-
-    const removeDoneTodos = () => {
-      //   const checkboxes = document.getElementsByClassName("todoCheckbox");
-      document
-        .querySelectorAll("li > input[type='checkbox']")
-        .forEach((checkbox) => {
-          if (checkbox.checked) {
-            checkbox.parentElement.remove();
-          }
-        });
-
-      //   console.log(checkboxes);
-      //   let itemsToBeRemoved = [];
-
-      //   for (const checkbox of checkboxes) {
-      //     if (checkbox.type === "checkbox" && checkbox.checked) {
-      //       itemsToBeRemoved.push(checkbox);
-      //     }
-      //   }
-
-      //   itemsToBeRemoved.forEach((checkbox) => checkbox.parentElement.remove());
-    };
-
-    function addRemoveTodoEventListener() {
-      const button = document.getElementById("clearButton");
-      button.addEventListener("click", removeDoneTodos);
-    }
-
-    function addLineThroughEventListener(checkbox) {
-      checkbox.addEventListener("click", () => {
-        if (checkbox.checked) {
-          checkbox.parentElement.style.textDecoration = "line-through";
-        } else {
-          checkbox.parentElement.style.textDecoration = "none";
-        }
-      });
-    }
-
-    function addTodoLineThroughEventListeners() {
-      // Select all checkboxes
-      const checkboxes = document.getElementsByTagName("input");
-
-      // Add an event listener to strikethrough the text on click
-      for (const checkbox of checkboxes) {
-        addLineThroughEventListener(checkbox);
-      }
-    }
-
-    // when the app starts up for the first time
-    addRemoveTodoEventListener();
-
-    // add the line through functionality to all existing checkboxes (2)
-    addTodoLineThroughEventListeners();
-  </script>
 </html>
