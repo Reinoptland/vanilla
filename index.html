@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <template id="todoItemTemplate">
+      <li>
+        <input type="checkbox" />
+      </li>
+    </template>
   </head>
   <body>
     <h1>My todo list</h1>
@@ -18,7 +23,6 @@
       <li><input type="checkbox" />Learn vanilla JS</li>
       <li><input type="checkbox" />Make a todo app</li>
     </ul>
-    <li><input />Make a todo app</li>
     <button id="clearButton">Clear items which are done</button>
   </body>
   <script>
@@ -26,15 +30,18 @@
     const button = document.getElementById("newTodo");
 
     function createTodoElement(todoText) {
-      const listItem = document.createElement("li");
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.classList.add("todoCheckbox");
-      addLineThroughEventListener(checkbox);
-      listItem.appendChild(checkbox);
+      const newTodoItem = document
+        .querySelector("#todoItemTemplate")
+        .content.cloneNode(true);
+
+      addLineThroughEventListener(
+        newTodoItem.querySelector('input[type="checkbox"]')
+      );
+
       const text = document.createTextNode(todoText);
-      listItem.appendChild(text);
-      return listItem;
+      newTodoItem.querySelector("li").appendChild(text);
+
+      return newTodoItem;
     }
 
     function newTodo() {
