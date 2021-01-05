@@ -178,7 +178,9 @@ If you want to format JSON, consider using
   - document.querySelector() / document.querySelectorAll() -> css selector, and use forEach
   - html templates
 - The idea of initializing our JavaScript (where to put our script)
-- What is the DOM actually??
+  - async an external script
+  - DOMContentLoaded to wait for interactive JavaScript that needs the page to have been loaded
+- What is the DOM actually?? -> HTML Programming Interface
 - V2 api explorer
 
 Diagnosis
@@ -191,3 +193,24 @@ Diagnosis
   - Verify your prediction was correct (run the code)
 
 - Problem: length of the collection was getting changed halfway through the loop
+
+How the web works
+
+1. User opens their browser
+2. Go to the adress bar
+3. Put in a url
+4. Click enter
+
+5. Request -> where does the request go? -> some server
+6. Get the ip adress of the server from the DNS system
+7. Our request sent to the right server
+8. Sends a response -> a HTML file
+
+9. Now we have an HTML file (text)
+10. The browser "parses" the HTML -> The DOM (Document Object Model)
+11. The DOM is html text (tags -> `<html></html>`) translated into HTML Elements, which are stored in memory
+12. These HTML Elements are like JavaScript Objects
+13. You can change the HTML elements (which are like objects) through JavaScript
+14. That way you can change the content on the page
+
+![api-explorer-v2](api-explorer-v2.png)
