@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <template id="todoItemTemplate">
-      <li classname="todoItem">
-        <input
-          classname="todoItem__checkbox"
-          type="checkbox"
-          aria-label="done"
-        />
+      <li class="todo">
+        <input type="checkbox" aria-label="done" />
       </li>
     </template>
     <script src="main.js"></script>
+    <style>
+      .todo {
+        color: black;
+      }
+
+      .todo--done {
+        text-decoration: line-through;
+        color: grey;
+      }
+    </style>
   </head>
   <body>
     <h1>My todo list</h1>
@@ -25,8 +31,8 @@
       </button>
     </div>
     <ul id="todoList">
-      <li><input type="checkbox" />Learn vanilla JS</li>
-      <li><input type="checkbox" />Make a todo app</li>
+      <li class="todo"><input type="checkbox" />Learn vanilla JS</li>
+      <li class="todo"><input type="checkbox" />Make a todo app</li>
     </ul>
     <button id="clearButton">Clear items which are done</button>
   </body>

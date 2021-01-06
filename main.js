@@ -14,11 +14,9 @@ function createTodoElement(todoText) {
 }
 
 function newTodo() {
-  const input = document.getElementById("todoInput");
-  const value = input.value;
+  const value = document.getElementById("todoInput").value;
   const newTodoItem = createTodoElement(value);
-  const list = document.getElementById("todoList");
-  list.appendChild(newTodoItem);
+  document.getElementById("todoList").appendChild(newTodoItem);
 }
 
 const removeDoneTodos = () => {
@@ -32,17 +30,14 @@ const removeDoneTodos = () => {
 };
 
 function addRemoveTodoEventListener() {
-  const button = document.getElementById("clearButton");
-  button.addEventListener("click", removeDoneTodos);
+  document
+    .getElementById("clearButton")
+    .addEventListener("click", removeDoneTodos);
 }
 
 function addLineThroughEventListener(checkbox) {
   checkbox.addEventListener("click", () => {
-    if (checkbox.checked) {
-      checkbox.parentElement.style.textDecoration = "line-through";
-    } else {
-      checkbox.parentElement.style.textDecoration = "none";
-    }
+    checkbox.parentElement.classList.toggle("todo--done");
   });
 }
 

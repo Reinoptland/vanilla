@@ -214,3 +214,15 @@ How the web works
 14. That way you can change the content on the page
 
 ![api-explorer-v2](api-explorer-v2.png)
+
+## Day 3
+
+- classList -> classList.add classList.toggle
+  - navbar -> mobileNavbar & mobileNavbar--open
+- Seperating things into functions
+- Writing code into different files
+- A build process
+  - Webpack
+    - JS files (src) -> 1 JS file (bundle / build)
+    - Sass -> sass files -> 1 css file
+    - Babel (Transpiler) -> JS Files "modern javascript" -> JS Files "backward compatible javascript"
