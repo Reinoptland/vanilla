@@ -268,4 +268,10 @@ Persisting
   - [x] Make a new id -> highest id + 1
   - [x] Store the new todo -> write it to the file
 - DELETE todos -> Delete All Done
+  - [x] Send the ids from the server
+  - [x] Attach an id to each todo item
+  - [x] When we click clear done gather which ids are done
+  - [x] Send A DELETE / request with an array of done ids
+  - [ ] Filter out the todos which are to be deleted
+  - [ ] Update the file
 - PATCH todos -> Done / Not Done

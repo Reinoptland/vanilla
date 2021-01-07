@@ -4,11 +4,12 @@ export function addLineThroughEventListener(checkbox) {
   });
 }
 
-export function createTodoElement(todoText, done) {
+export function createTodoElement(todoText, done, id) {
   const newTodoItem = document
     .querySelector("#todoItemTemplate")
     .content.cloneNode(true);
 
+  newTodoItem.querySelector("li").id = id;
   const checkbox = newTodoItem.querySelector('input[type="checkbox"]');
 
   if (done) {

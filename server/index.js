@@ -18,7 +18,7 @@ const requestListener = function (req, res) {
   //   console.log("WHAT ARE WE GETTING:", req);
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Request-Method", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "*");
 
   if (req.method == "POST") {
@@ -39,6 +39,23 @@ const requestListener = function (req, res) {
 
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end("post received");
+    });
+  } else if (req.method === "DELETE") {
+    var body = "";
+    req.on("data", function (data) {
+      body += data;
+    });
+    req.on("end", function () {
+      const idsToDelete = JSON.parse(body).ids;
+
+      console.log(idsToDelete);
+      todos = todos.filter((todo) => !idsToDelete.includes(todo.id));
+      console.log(todos);
+      let data = JSON.stringify(todos);
+      fs.writeFileSync("todos.json", data);
+
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end("deleted received");
     });
   } else if (req.method === "GET") {
     res.writeHead(200);

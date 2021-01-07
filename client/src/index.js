@@ -28,18 +28,41 @@ function newTodo() {
   renderTodo(text);
 }
 
+async function deleteDoneTodos(ids) {
+  // console.log(ids);
+  const response = await fetch("http://localhost:8000/", {
+    method: "DELETE",
+    mode: "cors",
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({ ids: ids }),
+  });
+
+  console.log(response);
+}
+
 const removeDoneTodos = () => {
+  let idsToRemove = [];
   document
     .querySelectorAll("li > input[type='checkbox']")
     .forEach((checkbox) => {
       if (checkbox.checked) {
+        idsToRemove = [...idsToRemove, parseInt(checkbox.parentElement.id)];
         checkbox.parentElement.remove();
       }
     });
+
+  console.log("ids to remove", idsToRemove);
+  // send request here
+  deleteDoneTodos(idsToRemove);
 };
 
-function renderTodo(text, done = false) {
-  const newTodoItem = createTodoElement(text, done);
+function renderTodo(text, done = false, id) {
+  const newTodoItem = createTodoElement(text, done, id);
   document.getElementById("todoList").appendChild(newTodoItem);
 }
 
@@ -84,7 +107,7 @@ async function loadTodos() {
   } else {
     // 3. Create a new todo element on the page, for each todo object from the server
     response.data.forEach((todo) => {
-      renderTodo(todo.text, todo.done);
+      renderTodo(todo.text, todo.done, todo.id);
     });
   }
 }
