@@ -249,3 +249,18 @@ Builds
 
 - src -> source code -> src folder
 - bundle -> build -> dist folder (distribution) / build folder (finished)
+
+## Day 4
+
+Persisting
+
+- GET todos
+  - [x] Delete placeholder todos from the HTML
+  - [x] Store todos on the server side -> file -> come up with a format?
+  - [x] Make a route on the server to GET /
+  - [x] The route responds with JSON when you make request
+  - [ ] Make a request from the client side
+  - [ ] Render the todos in the DOM
+- POST todos -> New todo
+- DELETE todos -> Delete All Done
+- PATCH todos -> Done / Not Done
