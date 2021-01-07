@@ -1,5 +1,6 @@
-const { postTodo, deleteTodos, getTodos } = require("./todoHandlers");
 const { parseBody, notFound, configureCORS } = require("./utils");
+const { postTodo, deleteTodos, getTodos } = require("./todoHandlers");
+console.log(configureCORS);
 
 const http = require("http");
 
