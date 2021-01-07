@@ -15,6 +15,11 @@ const todos = JSON.parse(buffer);
 // JSON.stringify -> JavaScript objects into a JSON string
 
 const requestListener = function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Request-Method", "*");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+
   res.writeHead(200);
   res.end(JSON.stringify(todos));
 };

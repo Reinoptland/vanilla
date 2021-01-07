@@ -3,24 +3,11 @@ import {
   addLineThroughEventListener,
 } from "./components/todos";
 
-import axios from "axios";
-// import moment from "moment";
 import "./style.scss";
-import { format } from 'date-fns'
-
-async function getData() {
-  const date = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
-  console.log(date);
-  const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
-
-  console.log(response.data);
-}
-getData();
 
 function newTodo() {
-  const value = document.getElementById("todoInput").value;
-  const newTodoItem = createTodoElement(value);
-  document.getElementById("todoList").appendChild(newTodoItem);
+  const text = document.getElementById("todoInput").value;
+  renderTodo(text);
 }
 
 const removeDoneTodos = () => {
@@ -32,6 +19,11 @@ const removeDoneTodos = () => {
       }
     });
 };
+
+function renderTodo(text) {
+  const newTodoItem = createTodoElement(text);
+  document.getElementById("todoList").appendChild(newTodoItem);
+}
 
 function addRemoveTodoEventListener() {
   document
@@ -54,9 +46,34 @@ function addNewTodoEventListener() {
   button.addEventListener("click", newTodo);
 }
 
+async function fetchTodos() {
+  // 1. fetch the data
+  // 2. Parse the response so we have javascript objects
+  try {
+    const response = await fetch("http://localhost:8000/");
+    const json = await response.json();
+    return { data: json, error: null };
+  } catch (error) {
+    return { data: null, error: error.message };
+  }
+}
+
+async function loadTodos() {
+  const response = await fetchTodos();
+  // console.log("todos:", response);
+  if (response.error) {
+    console.log("handle error here"); // give feedback like try again
+  } else {
+    // 3. Create a new todo element on the page, for each todo object from the server
+    response.data.forEach((todo) => {
+      renderTodo(todo.text);
+    });
+  }
+}
+
 function initApp() {
   // when the app starts add event listeners to make the app interative
-
+  loadTodos();
   addNewTodoEventListener();
   addRemoveTodoEventListener();
   addTodoLineThroughEventListeners();
@@ -64,5 +81,3 @@ function initApp() {
 
 // wait until the entire page has loaded
 document.addEventListener("DOMContentLoaded", initApp);
-
-console.log("hello world");

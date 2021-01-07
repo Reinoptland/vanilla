@@ -1,5 +1,5 @@
 [
-  { "id": 1, "text": "Learn Vanilla JavaScript", "done": false },
+  { "id": 1, "text": "Learn Vanilla JavaScript", "done": true },
   { "id": 2, "text": "Make a todo app", "done": false },
   { "id": 3, "text": "Setup a build", "done": false },
   { "id": 4, "text": "Persist the data", "done": false }
