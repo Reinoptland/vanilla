@@ -259,8 +259,9 @@ Persisting
   - [x] Store todos on the server side -> file -> come up with a format?
   - [x] Make a route on the server to GET /
   - [x] The route responds with JSON when you make request
-  - [ ] Make a request from the client side
-  - [ ] Render the todos in the DOM
+  - [x] Make a request from the client side
+  - [x] Render the todos in the DOM
+  - [ ] Make it possible to render a todo that is done already
 - POST todos -> New todo
 - DELETE todos -> Delete All Done
 - PATCH todos -> Done / Not Done

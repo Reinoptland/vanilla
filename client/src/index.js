@@ -20,8 +20,8 @@ const removeDoneTodos = () => {
     });
 };
 
-function renderTodo(text) {
-  const newTodoItem = createTodoElement(text);
+function renderTodo(text, done = false) {
+  const newTodoItem = createTodoElement(text, done);
   document.getElementById("todoList").appendChild(newTodoItem);
 }
 
@@ -66,7 +66,7 @@ async function loadTodos() {
   } else {
     // 3. Create a new todo element on the page, for each todo object from the server
     response.data.forEach((todo) => {
-      renderTodo(todo.text);
+      renderTodo(todo.text, todo.done);
     });
   }
 }
