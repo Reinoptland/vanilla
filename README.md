@@ -219,10 +219,33 @@ How the web works
 
 - classList -> classList.add classList.toggle
   - navbar -> mobileNavbar & mobileNavbar--open
-- Seperating things into functions
-- Writing code into different files
+- Writing code into different files -> module system (8% compatibility loss)
 - A build process
   - Webpack
     - JS files (src) -> 1 JS file (bundle / build)
     - Sass -> sass files -> 1 css file
     - Babel (Transpiler) -> JS Files "modern javascript" -> JS Files "backward compatible javascript"
+- Seperating things into functions
+
+## Webpack
+
+Build tool
+
+- bundles javascript into 1 file
+- uglifies and minifies the code
+- works with many plugins (sass, images, babel, typescript)
+- dev server, watch (similar to live server)
+- can use zero config mode: webpack
+- At lot the time you need a webpack.config.js -> install plugins
+
+Builds
+
+- optimized versions for running the browser
+  - as small possible
+  - as few files possible
+  - make them compatible with older browser -> by using babel
+
+2 sets of JS
+
+- src -> source code -> src folder
+- bundle -> build -> dist folder (distribution) / build folder (finished)

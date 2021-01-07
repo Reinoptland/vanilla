@@ -1,17 +1,21 @@
-function createTodoElement(todoText) {
-  const newTodoItem = document
-    .querySelector("#todoItemTemplate")
-    .content.cloneNode(true);
+import {
+  createTodoElement,
+  addLineThroughEventListener,
+} from "./components/todos";
 
-  addLineThroughEventListener(
-    newTodoItem.querySelector('input[type="checkbox"]')
-  );
+import axios from "axios";
+// import moment from "moment";
+import "./style.scss";
+import { format } from 'date-fns'
 
-  const text = document.createTextNode(todoText);
-  newTodoItem.querySelector("li").appendChild(text);
+async function getData() {
+  const date = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
+  console.log(date);
+  const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
 
-  return newTodoItem;
+  console.log(response.data);
 }
+getData();
 
 function newTodo() {
   const value = document.getElementById("todoInput").value;
@@ -33,12 +37,6 @@ function addRemoveTodoEventListener() {
   document
     .getElementById("clearButton")
     .addEventListener("click", removeDoneTodos);
-}
-
-function addLineThroughEventListener(checkbox) {
-  checkbox.addEventListener("click", () => {
-    checkbox.parentElement.classList.toggle("todo--done");
-  });
 }
 
 function addTodoLineThroughEventListeners() {
@@ -66,3 +64,5 @@ function initApp() {
 
 // wait until the entire page has loaded
 document.addEventListener("DOMContentLoaded", initApp);
+
+console.log("hello world");
