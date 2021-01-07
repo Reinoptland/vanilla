@@ -16,53 +16,24 @@ let todos = JSON.parse(buffer);
 
 const requestListener = function (req, res) {
   //   console.log("WHAT ARE WE GETTING:", req);
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Request-Method", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "*");
+  configureCORS(res);
 
-  if (req.method == "POST") {
-    var body = "";
-    req.on("data", function (data) {
-      body += data;
-    });
-    req.on("end", function () {
-      const ids = todos.map((todo) => todo.id);
-      const newId = Math.max(...ids) + 1;
-      // turn into JS object
-      const newTodo = JSON.parse(body);
-      // store in memory
-      todos = [...todos, { ...newTodo, done: false, id: newId }];
-      // write it to a file
-      let data = JSON.stringify(todos);
-      fs.writeFileSync("todos.json", data);
+  switch (req.method) {
+    case "POST":
+      parseBody(req, res, postTodo);
+      break;
 
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end("post received");
-    });
-  } else if (req.method === "DELETE") {
-    var body = "";
-    req.on("data", function (data) {
-      body += data;
-    });
-    req.on("end", function () {
-      const idsToDelete = JSON.parse(body).ids;
+    case "DELETE":
+      parseBody(req, res, deleteTodos);
+      break;
 
-      console.log(idsToDelete);
-      todos = todos.filter((todo) => !idsToDelete.includes(todo.id));
-      console.log(todos);
-      let data = JSON.stringify(todos);
-      fs.writeFileSync("todos.json", data);
+    case "GET":
+      getTodos(res);
+      break;
 
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end("deleted received");
-    });
-  } else if (req.method === "GET") {
-    res.writeHead(200);
-    res.end(JSON.stringify(todos));
-  } else {
-    res.writeHead(200);
-    res.end("Not Found");
+    default:
+      notFound(res);
+      break;
   }
 };
 
@@ -71,3 +42,61 @@ const server = http.createServer(requestListener);
 server.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}`);
 });
+
+function configureCORS(res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Request-Method", "*");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+}
+
+function notFound(res) {
+  res.writeHead(200);
+  res.end("Not Found");
+}
+
+function getTodos(res) {
+  res.writeHead(200);
+  res.end(JSON.stringify(todos));
+}
+
+function parseBody(req, res, next) {
+  var body = "";
+  req.on("data", function (data) {
+    body += data;
+  });
+  req.on("end", function () {
+    req.body = JSON.parse(body);
+
+    next(req, res);
+  });
+}
+
+function deleteTodos(req, res) {
+  const { ids } = req.body;
+
+  todos = todos.filter((todo) => !ids.includes(todo.id));
+
+  saveTodos();
+
+  res.writeHead(200, { "Content-Type": "text/html" });
+  res.end("deleted received");
+}
+
+function saveTodos() {
+  let data = JSON.stringify(todos);
+  fs.writeFileSync("todos.json", data);
+}
+
+function postTodo(req, res) {
+  const ids = todos.map((todo) => todo.id);
+  const newId = Math.max(...ids) + 1;
+  // turn into JS object
+  // store in memory
+  todos = [...todos, { ...req.body, done: false, id: newId }];
+  // write it to a file
+  saveTodos();
+
+  res.writeHead(200, { "Content-Type": "text/html" });
+  res.end("post received");
+}
