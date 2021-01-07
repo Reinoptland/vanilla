@@ -261,7 +261,11 @@ Persisting
   - [x] The route responds with JSON when you make request
   - [x] Make a request from the client side
   - [x] Render the todos in the DOM
-  - [ ] Make it possible to render a todo that is done already
+  - [x] Make it possible to render a todo that is done already
 - POST todos -> New todo
+  - [x] Send the data from the client to the server
+  - [x] Make a route to POST /
+  - [x] Make a new id -> highest id + 1
+  - [x] Store the new todo -> write it to the file
 - DELETE todos -> Delete All Done
 - PATCH todos -> Done / Not Done

@@ -5,8 +5,26 @@ import {
 
 import "./style.scss";
 
+async function postTodo(text) {
+  console.log(text);
+  const response = await fetch("http://localhost:8000/", {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({ text: text }),
+  });
+
+  console.log(response);
+}
+
 function newTodo() {
   const text = document.getElementById("todoInput").value;
+  postTodo(text);
   renderTodo(text);
 }
 
